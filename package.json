@@ -1,0 +1,23 @@
+{
+    "name": "storage-api",
+    "version": "1.0.0",
+    "description": "封装一套localStorage跟sessionStorage的api",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+ssh://git@github.com/txw2018/storage-api.git"
+    },
+    "keywords": [
+        "localStorage",
+        "sessionStorage"
+    ],
+    "author": "txw",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/txw2018/storage-api/issues"
+    },
+    "homepage": "https://github.com/txw2018/storage-api#readme"
+}
