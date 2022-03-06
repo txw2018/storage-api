@@ -2,7 +2,8 @@
     "name": "storage-api",
     "version": "1.0.0",
     "description": "封装一套localStorage跟sessionStorage的api",
-    "main": "dist/index.js",
+    "module": "dist/storage.esm.js",
+    "main": "dist/storage.js",
     "scripts": {
         "build": "node scripts/build.js",
         "test": "echo \"Error: no test specified\" && exit 1"
@@ -29,6 +30,7 @@
         "@rollup/plugin-node-resolve": "^13.1.3",
         "@rollup/plugin-replace": "^4.0.0",
         "rollup": "^2.69.1",
+        "rollup-plugin-terser": "^7.0.2",
         "typescript": "^4.6.2"
     }
 }
