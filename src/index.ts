@@ -1,6 +1,12 @@
+type IStorage = {
+    set(key:string,value:any):void;
+    get(key:string):any;
+    remove(key:string):void;
+}
 
-export const LocalStorage = {
-    set(key: string, value: any) {
+
+export const LocalStorage:IStorage = {
+    set(key, value) {
         if (typeof value === 'string') {
             localStorage.setItem(key, JSON.stringify({
                 _format: 'string',
@@ -14,20 +20,19 @@ export const LocalStorage = {
             }))
         }
     },
-    get(key: string): any {
+    get(key) {
         const val = localStorage.getItem(key)
         if (val === null) {
             return null
         }
-
         return JSON.parse(val).value
     },
-    remove(key: string) {
+    remove(key) {
         localStorage.removeItem(key)
     }
 }
 
-export const SessionStorage = {
+export const SessionStorage:IStorage = {
     set(key: string, value: any) {
         if (typeof value === 'string') {
             sessionStorage.setItem(key, JSON.stringify({
@@ -49,7 +54,7 @@ export const SessionStorage = {
         }
         return JSON.parse(val).value
     },
-    removeItem(key: string) {
+    remove(key: string) {
         sessionStorage.removeItem(key)
     }
 }
