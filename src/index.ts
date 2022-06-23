@@ -1,60 +1,35 @@
-type IStorage = {
-    set(key:string,value:any):void;
-    get(key:string):any;
-    remove(key:string):void;
+const isString = （value） => typeof value === 'string'
+const STORAGE = window.localStorage
+const SESSION = window.sessionStorage
+function serialize(value) {
+  return JSON.stringify(value)
 }
 
+function deserialize(value) {
+  if (!isString(value)) {
+    return undefined
+  }
+  try {
+    return JSON.parse(value)
+  } catch (error) {
+    return value || undefined
+  }
+}
 
-export const LocalStorage:IStorage = {
+function createStorage(STORAGE) {
+  return {
     set(key, value) {
-        if (typeof value === 'string') {
-            localStorage.setItem(key, JSON.stringify({
-                _format: 'string',
-                value
-            }))
-        }
-        if (typeof value === 'object') {
-            localStorage.setItem(key, JSON.stringify({
-                _format: 'object',
-                value
-            }))
-        }
+      STORAGE.setItem(key, serialize(value))
     },
-    get(key) {
-        const val = localStorage.getItem(key)
-        if (val === null) {
-            return null
-        }
-        return JSON.parse(val).value
+    get(key, defaultValue) {
+      const value = deserialize(STORAGE.getItem(key))
+      return value === undefined ? defaultValue : value
     },
     remove(key) {
-        localStorage.removeItem(key)
+      STORAGE.removeItem(key)
     }
+  }
 }
+export const storage = createStorage(STORAGE)
 
-export const SessionStorage:IStorage = {
-    set(key: string, value: any) {
-        if (typeof value === 'string') {
-            sessionStorage.setItem(key, JSON.stringify({
-                _format: 'string',
-                value
-            }))
-        }
-        if (typeof value === 'object') {
-            sessionStorage.setItem(key, JSON.stringify({
-                _format: 'object',
-                value
-            }))
-        }
-    },
-    get(key: string) {
-        const val: any = sessionStorage.getItem(key)
-        if (val === null) {
-            return null
-        }
-        return JSON.parse(val).value
-    },
-    remove(key: string) {
-        sessionStorage.removeItem(key)
-    }
-}
+export const session = createStorage(SESSION)
